@@ -16,6 +16,7 @@ import { TableComponent } from '../../../shared/components/table/table.component
     TeachersRoutingModule,
     ListPostsRoutingModule,
     MaterialModule
-  ]
+  ],
+  exports: [ListPostsComponent, TableComponent]
 })
 export class TeachersModule { }

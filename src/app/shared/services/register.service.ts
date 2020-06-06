@@ -45,6 +45,14 @@ export class RegisterService {
       );
   }
 
+  public getStudentsRegisters(): Observable<StudentOrTeacherI[]> {
+    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'student')).valueChanges();
+  }
+
+  public getTeachersRegisters(): Observable<StudentOrTeacherI[]> {
+    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'teacher')).valueChanges();
+  }
+
   public getOneRegister(id: StudentOrTeacherI): Observable<StudentOrTeacherI> {
     return this.afs.doc<StudentOrTeacherI>(`posts/${id}`).valueChanges();
   }

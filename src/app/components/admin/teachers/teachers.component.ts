@@ -30,7 +30,7 @@ export class TeachersComponent implements OnInit, AfterViewInit {
   constructor(private registerSVC: RegisterService, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.registerSVC.getAllRegisters().subscribe(registers => this.dataSource.data = registers);
+    this.registerSVC.getTeachersRegisters().subscribe(registers => this.dataSource.data = registers);
   }
 
   ngAfterViewInit() {
@@ -41,6 +41,14 @@ export class TeachersComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  toDateTime(secs) {
+    const yearUnix = 1969;
+    const a = new Date(secs * 1000);
+    const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const time = a.getDate() + '/' + months[a.getMonth()] + '/' + (a.getFullYear() - yearUnix);
+    return time;
   }
 
   onEditRegister(register: StudentOrTeacherI) {
