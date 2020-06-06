@@ -6,7 +6,8 @@ import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './../../../shared/components/modal/modal.component';
 import { StudentOrTeacherI } from '../../../shared/models/studentOrTeacher.interface';
-import { RegisterService } from '../../../shared/services/register.service';
+import { RegisterService } from '../../../shared/services/register.service'; 7
+import { Router } from '@angular/router';
 
 export interface PeriodicElement {
   name: string;
@@ -21,16 +22,16 @@ export interface PeriodicElement {
   styleUrls: ['./students.component.scss']
 })
 export class StudentsComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['name', 'birthday', 'phone', 'email', 'address', 'actions'];
+  displayedColumns: string[] = ['name', 'birthday', 'phone', 'email', 'address', 'payments', 'actions'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private registerSVC: RegisterService, public dialog: MatDialog) { }
+  constructor(private registerSVC: RegisterService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
-    this.registerSVC.getAllRegisters().subscribe(registers => this.dataSource.data = registers);
+    this.registerSVC.getStudentsRegisters().subscribe(registers => this.dataSource.data = registers);
   }
 
   ngAfterViewInit() {
@@ -41,6 +42,21 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  toDateTime(secs) {
+    const yearUnix = 1969;
+    const a = new Date(secs * 1000);
+    const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+    const time = a.getDate() + '/' + months[a.getMonth()] + '/' + (a.getFullYear() - yearUnix);
+    return time;
+  }
+
+  goToPay(register: StudentOrTeacherI) {
+    console.log("hooola", register);
+    const a = this.toDateTime(register.birthdate);
+    console.log(a);
+    // this.router.navigate(['/home']);
   }
 
   onEditRegister(register: StudentOrTeacherI) {
