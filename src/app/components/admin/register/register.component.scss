@@ -1,0 +1,56 @@
+.new-register-container{
+    display: flex;
+    flex-direction: column;
+    padding: 3% 10%;
+    background: #fff;
+
+    form{
+        margin-bottom: 20px;
+
+        input[type='file']{
+            display: none;
+        }
+
+        input.mat-flat-button{
+            width: 20%;
+            background: #4e0561;
+            color: #fff;
+
+            &:hover{
+                background: #3c034b;
+                color: #fff;
+            }
+        }
+
+        .custom-file{
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 0;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .container-input-file{
+            margin: 2rem 0;
+        }
+
+        .container-button{
+            min-height: 20px;
+            max-height: 100px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        mat-form-field{
+            width: 90%;
+            margin: 0% 5%;
+        }
+
+        .extra-information{
+            margin: 1.5% 0% .5% 0%;
+            border-left: 4px solid #2196F3!important;
+            border: 1px solid #D9D9D9;
+            
+        }
+    }
+}

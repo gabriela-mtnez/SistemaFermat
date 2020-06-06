@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "sistemafermat": {
+      "hosting": {
+        "SitFermat": [
+          "sistemafermat"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+<mat-toolbar class="color">
+    <a routerLink="/">{{appName}}</a>
+    <span class="fill-remaining-space"></span>
+    
+    <a routerLink="/about" routerLinkActive="active">
+        <button mat-button>Acerca de Nosotros</button>
+    </a>
+
+    <a routerLink="/admin" routerLinkActive="active" *ngIf="authSvc.userData | async">
+        <button mat-button>Administrador</button>
+    </a>
+
+    <!-- <a routerLink="/register" routerLinkActive="active" *ngIf="authSvc.userData | async">
+        <button mat-button>Registro</button>
+    </a>
+
+    <a routerLink="/students" routerLinkActive="active" *ngIf="authSvc.userData | async">
+        <button mat-button>Estudiantes</button>
+    </a>
+
+    <a routerLink="/teachers" routerLinkActive="active" *ngIf="authSvc.userData | async">
+        <button mat-button>Profesores</button>
+    </a>
+
+    <a routerLink="/subjects" routerLinkActive="active" *ngIf="authSvc.userData | async">
+        <button mat-button>Materias</button>
+    </a> -->
+
+    <a *ngIf="authSvc.userData | async; else showLogin" (click)="onLogout()">
+        <button mat-button>Cerrar Sesión</button>
+    </a>
+
+    <ng-template #showLogin>
+        <a routerLink="/login" routerLinkActive="active">
+            <button mat-button>Iniciar Sesión</button>
+        </a>
+    </ng-template>
+
+</mat-toolbar>

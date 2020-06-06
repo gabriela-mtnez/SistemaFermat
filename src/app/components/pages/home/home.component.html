@@ -1,0 +1,34 @@
+<div class="container" *ngIf="posts$ | async as posts; else loading">
+    <mat-card class="post-card" *ngFor="let post of posts">
+        <mat-card-header>
+            <mat-card-title>
+                <a [routerLink]="['/post', post.id]">
+                    {{post.titlePost}}
+                </a>
+            </mat-card-title>
+        </mat-card-header>
+        <img matCardImage [src]="post.imagePost">
+        <mat-card-content>
+            <p>
+                {{post.contentPost}}
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>
+<ng-template #loading>
+    <div class="container-spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
+
+<!-- <ngb-carousel>
+    <ng-template *ngFor="let photo of photos" ngbSlide>
+      <div class="picsum-img-wrapper">
+        <img src="{{photo.img}}" alt="Random first slide">
+      </div>
+      <div class="carousel-caption">
+        <h3>{{photo.name}}</h3>
+        <p>{{photo.desc}}</p>
+      </div>
+    </ng-template>
+</ngb-carousel> -->

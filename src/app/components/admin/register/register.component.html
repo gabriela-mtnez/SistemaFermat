@@ -1,0 +1,70 @@
+<div class="new-register-container">
+    <form [formGroup]="newRegisterForm" (ngSubmit)="addNewRegister(newRegisterForm.value)">
+
+        <mat-radio-group [(ngModel)]="rol" formControlName="rol">
+            <label> Registar a:</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <mat-radio-button value="student">Estudiante</mat-radio-button>&nbsp;&nbsp;&nbsp;
+            <mat-radio-button value="teacher">Profesor</mat-radio-button>
+        </mat-radio-group>
+        
+        <mat-form-field>
+            <mat-label>Nombre:</mat-label>
+            <input matInput placeholder="Nombre" type="text" formControlName="name">
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput placeholder="Fecha de nacimiento" type="text" formControlName="birthdate">
+        </mat-form-field> -->
+
+        <mat-form-field>
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" formControlName="birthdate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput placeholder="Correo" type="email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Dirección</mat-label>
+            <input matInput placeholder="Dirección" type="text" formControlName="address">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Teléfono</mat-label>
+            <input matInput placeholder="Teléfono" type="tel" formControlName="phone">
+        </mat-form-field>
+
+        <div *ngIf="rol == 'student'" class="extra-information">
+            <mat-form-field>
+                <mat-label>Promedio</mat-label>
+                <input matInput placeholder="Promedio" type="number" formControlName="average">
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Escuela de procedencia</mat-label>
+                <input matInput placeholder="Procedencia" type="text" formControlName="schoolOfOrigin">
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Escuela deseada</mat-label>
+                <input matInput placeholder="Escuela deseada" type="text" formControlName="option">
+            </mat-form-field>
+        </div>
+
+        <div class="extra-information" *ngIf="rol == 'teacher'">
+            <mat-form-field>
+                <mat-label>Especialidad</mat-label>
+                <input matInput placeholder="Especialidad" type="text" formControlName="speciality">
+            </mat-form-field>
+        </div>
+
+        <div class="container-button">
+            <input type="submit" class="mat-flat-button" value="Guardar">
+        </div>
+    </form>
+</div>
