@@ -1,16 +1,16 @@
-<div class="container" *ngIf="posts$ | async as posts; else loading">
-    <mat-card class="post-card" *ngFor="let post of posts">
+<div class="container" *ngIf="subjects$ | async as subjects; else loading">
+    <mat-card class="post-card" *ngFor="let subject of subjects">
         <mat-card-header>
             <mat-card-title>
-                <a [routerLink]="['/post', post.id]">
-                    {{post.titlePost}}
+                <a [routerLink]="['/subject', subject.id]">
+                    {{subject.subject}}
                 </a>
             </mat-card-title>
         </mat-card-header>
-        <img matCardImage [src]="post.imagePost">
+        <img matCardImage src="https://images.pexels.com/photos/256520/pexels-photo-256520.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500">
         <mat-card-content>
             <p>
-                {{post.contentPost}}
+               Profesor: {{subject.teacher}}
             </p>
         </mat-card-content>
     </mat-card>
