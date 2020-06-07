@@ -4,6 +4,7 @@ export interface StudentOrTeacherI{
     name: string;
     birthdate: any;
     email: string;
+    password: string;
     address: string;
     phone: number;
     average?: number;

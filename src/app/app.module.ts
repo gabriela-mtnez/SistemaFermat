@@ -26,6 +26,10 @@ import { EditPostModule } from './components/posts/edit-post/edit-post.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +52,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MaterialModule,
     ReactiveFormsModule,
     EditPostModule,
-    NgbModule
+    NgbModule,
+    MatDatepickerModule
   ],
   entryComponents: [ModalComponent],
   providers: [{

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { StudentOrTeacherI } from '../models/studentOrTeacher.interface';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { map, finalize } from 'rxjs/operators';
+import { resolve } from 'url';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class RegisterService {
       name: register.name,
       birthdate: register.birthdate,
       email: register.email,
+      password: register.password,
       address: register.address,
       phone: register.phone,
       average: register.average,
@@ -28,40 +30,65 @@ export class RegisterService {
       option: register.option,
       speciality: register.speciality
     };
-    return this.registersCollection.add(registerObj);
+    // return this.registersCollection.add(registerObj);
+    return new Promise((resolve, reject) => {
+      this.registersCollection.add(registerObj)
+        .then(userData => resolve(userData),
+        err =>  reject(err));
+    });
   }
 
-  public getAllRegisters(): Observable<StudentOrTeacherI[]> {
-    return this.registersCollection
-      .snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as StudentOrTeacherI;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-        )
-      );
-  }
+  // public getAllRegisters(): Observable<StudentOrTeacherI[]> {
+  //   return this.registersCollection
+  //     .snapshotChanges()
+  //     .pipe(
+  //       map(actions =>
+  //         actions.map(a => {
+  //           const data = a.payload.doc.data() as StudentOrTeacherI;
+  //           const id = a.payload.doc.id;
+  //           return { id, ...data };
+  //         })
+  //       )
+  //     );
+  // }
 
   public getStudentsRegisters(): Observable<StudentOrTeacherI[]> {
-    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'student')).valueChanges();
+    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'student'))
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as StudentOrTeacherI;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
   }
 
   public getTeachersRegisters(): Observable<StudentOrTeacherI[]> {
-    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'teacher')).valueChanges();
+    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'teacher'))
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as StudentOrTeacherI;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
   }
 
   public getOneRegister(id: StudentOrTeacherI): Observable<StudentOrTeacherI> {
     return this.afs.doc<StudentOrTeacherI>(`posts/${id}`).valueChanges();
   }
 
-  public editRegisterById( register: StudentOrTeacherI) {
-      return this.registersCollection.doc(register.id).update(register);
+  public editRegisterById(register: StudentOrTeacherI) {
+    return this.registersCollection.doc(register.id).update(register);
   }
 
-  public deleteRegisterById( register: StudentOrTeacherI ) {
+  public deleteRegisterById(register: StudentOrTeacherI ) {
     return this.registersCollection.doc(register.id).delete();
   }
 
