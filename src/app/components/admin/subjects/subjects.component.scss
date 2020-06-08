@@ -1,10 +1,14 @@
+.mat-drawer-container{
+    background-color: #fff!important;
+}
 .container{
-    margin-top: 25px;
+    padding: 25px 0;
     display: grid;
     grid-template-columns: 24% 24% 24% 24%;
     grid-column-gap: 10px;
     grid-row-gap: 15px;
     justify-content: center;
+    background-color: #fff;
 
     a{
         cursor: pointer;

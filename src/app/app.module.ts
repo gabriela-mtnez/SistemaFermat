@@ -27,7 +27,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import { TopicsTableComponent } from './components/admin/subjects/topics-table/topics-table.component';
 
 
 
@@ -39,8 +38,7 @@ import { TopicsTableComponent } from './components/admin/subjects/topics-table/t
     ToolbarComponent,
     ContainerAppComponent,
     ModalComponent,
-    EditPostComponent,
-    TopicsTableComponent
+    EditPostComponent
   ],
   imports: [
     BrowserModule,

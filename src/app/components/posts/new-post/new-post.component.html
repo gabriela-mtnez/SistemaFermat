@@ -1,21 +1,21 @@
 <div class="new-post-container">
-    <form [formGroup]="newPostForm" (ngSubmit)="addNewPost(newPostForm.value)">
+    <form [formGroup]="newTopicForm" (ngSubmit)="addNewPost(newTopicForm.value)">
         <mat-form-field>
-            <mat-label>Nombre de la materia</mat-label>
-            <input matInput placeholder="Materia" type="text" formControlName="titlePost">
+            <mat-label>Nombre del tema</mat-label>
+            <input matInput placeholder="Nombre del tema" type="text" formControlName="topic">
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Nombre del profesor</mat-label>
-            <input matInput placeholder="Profesor" type="text" formControlName="contentPost">
+            <mat-label>Descripción</mat-label>
+            <input matInput placeholder="Descripción" type="text" formControlName="description">
         </mat-form-field>
         <div class="container-input-file">
             <label class="custom-file">
-                <input type="file" formControlName="imagePost" (change)="handleImage($event)">
-                <mat-icon>cloud_upload</mat-icon><span>Selecciona la imagen</span>
+                <input type="file" formControlName="content" (change)="handleImage($event)">
+                <mat-icon>cloud_upload</mat-icon><span>Selecciona tu archivo</span>
             </label>
         </div>
         <div class="container-button">
-            <input type="submit" class="mat-flat-button" value="Save" [mat-dialog-close]="true">
+            <input type="submit" class="mat-flat-button" value="Guardar" [mat-dialog-close]="true">
         </div>
     </form>
 </div>

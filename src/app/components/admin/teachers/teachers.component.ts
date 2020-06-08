@@ -52,7 +52,6 @@ export class TeachersComponent implements OnInit, AfterViewInit {
   }
 
   onEditRegister(register: StudentOrTeacherI) {
-    console.log(register);
     this.openDialog(register);
   }
 
@@ -95,7 +94,6 @@ export class TeachersComponent implements OnInit, AfterViewInit {
     };
     const dialogRef = this.dialog.open(ModalComponent, config);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result ${result}');
     });
   }
 }

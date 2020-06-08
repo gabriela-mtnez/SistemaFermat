@@ -53,16 +53,11 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   goToPay(register: StudentOrTeacherI) {
-    console.log("hooola", register);
     const a = this.toDateTime(register.birthdate);
-    console.log(a);
-    // this.router.navigate(['/home']);
   }
 
   onEditRegister(register: StudentOrTeacherI) {
     this.openDialog(register);
-    console.log("OnEdit", register);
-    
   }
 
   onDeleteRegister(register: StudentOrTeacherI) {
@@ -104,7 +99,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     };
     const dialogRef = this.dialog.open(ModalComponent, config);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result ${result}');
     });
   }
 }

@@ -1,8 +1,12 @@
+<div class="title">
+    <h2>Materias</h2>
+  </div>
 <div class="container" *ngIf="subjects$ | async as subjects; else loading">
     <mat-card class="post-card" *ngFor="let subject of subjects">
         <mat-card-header>
             <mat-card-title>
-                <a [routerLink]="['/subject', subject.id]">
+                <!-- <a [routerLink]="['/subject', subject.id]"> -->
+                <a  [routerLink]="['/admin/list-topics', subject.id]" routerLinkActive="active">
                     {{subject.subject}}
                 </a>
             </mat-card-title>
