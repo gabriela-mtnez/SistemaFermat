@@ -33,6 +33,10 @@ const routes: Routes = [
       { path: 'subjects',
       loadChildren: () => import('./subjects/subjects.module').then(
         m => m.SubjectsModule)
+      },
+      { path: 'payment/:register',
+      loadChildren: () => import('./payment/payment.module').then(
+        m => m.PaymentModule)
       }
     ]
   }

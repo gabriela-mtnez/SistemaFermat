@@ -46,15 +46,39 @@ export class RegisterService {
   }
 
   public getStudentsRegisters(): Observable<StudentOrTeacherI[]> {
-    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'student')).valueChanges();
+    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'student'))
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as StudentOrTeacherI;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
   }
 
   public getTeachersRegisters(): Observable<StudentOrTeacherI[]> {
-    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'teacher')).valueChanges();
+    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'teacher'))
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data = a.payload.doc.data() as StudentOrTeacherI;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        })
+      )
+    );
   }
 
   public getOneRegister(id: StudentOrTeacherI): Observable<StudentOrTeacherI> {
     return this.afs.doc<StudentOrTeacherI>(`posts/${id}`).valueChanges();
+  }
+
+  public getRegisterById(id): Observable<StudentOrTeacherI> {
+    return this.afs.doc<StudentOrTeacherI>(`registers/${id}`).valueChanges();
   }
 
   public editRegisterById( register: StudentOrTeacherI) {
@@ -63,6 +87,23 @@ export class RegisterService {
 
   public deleteRegisterById( register: StudentOrTeacherI ) {
     return this.registersCollection.doc(register.id).delete();
+  }
+
+  public saveMoney(obj) {
+    return this.afs.collection<StudentOrTeacherI>('payments').add(obj);
+  }
+
+  public getMoneyData(id) {
+    return this.afs.collection('payments', ref => ref.where('studentId', '==', id))
+    .snapshotChanges()
+    .pipe(
+      map(actions =>
+        actions.map(a => {
+          const data: any = a.payload.doc.data();
+          return { ...data };
+        })
+      )
+    );
   }
 
   // public preAddAndUpdatePost(post: PostI, image: FileI){
