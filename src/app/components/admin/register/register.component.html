@@ -6,7 +6,7 @@
             <mat-radio-button value="student">Estudiante</mat-radio-button>&nbsp;&nbsp;&nbsp;
             <mat-radio-button value="teacher">Profesor</mat-radio-button>
         </mat-radio-group>
-        
+
         <mat-form-field>
             <mat-label>Nombre:</mat-label>
             <input matInput placeholder="Nombre" type="text" formControlName="name">
@@ -22,7 +22,7 @@
             <input matInput [matDatepicker]="picker" placeholder="Fecha de nacimiento" formControlName="birthdate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+        </mat-form-field>
 
         <mat-form-field>
             <mat-label>Correo electrónico</mat-label>
@@ -49,12 +49,12 @@
                 <mat-label>Promedio</mat-label>
                 <input matInput placeholder="Promedio" type="number" formControlName="average">
             </mat-form-field>
-    
+
             <mat-form-field>
                 <mat-label>Escuela de procedencia</mat-label>
                 <input matInput placeholder="Procedencia" type="text" formControlName="schoolOfOrigin">
             </mat-form-field>
-    
+
             <mat-form-field>
                 <mat-label>Escuela deseada</mat-label>
                 <input matInput placeholder="Escuela deseada" type="text" formControlName="option">

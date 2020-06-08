@@ -108,7 +108,7 @@ export class RegisterService {
         )
       );
   }
-  
+
   public getAllSubjects(): Observable<SubjectI[]> {
     return this.subjectsCollection
       .snapshotChanges()
@@ -125,6 +125,19 @@ export class RegisterService {
 
   public getOneSubject(id: SubjectI): Observable<SubjectI> {
     return this.afs.doc<SubjectI>(`subject/${id}`).valueChanges();
+  }
+
+  public getRolUser(email: string) {
+    return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('email', '==', email))
+    .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data: any = a.payload.doc.data();
+            return { ...data };
+          })
+        )
+      );
   }
 
   // public preAddAndUpdatePost(post: PostI, image: FileI){

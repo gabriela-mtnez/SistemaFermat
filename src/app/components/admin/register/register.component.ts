@@ -4,6 +4,7 @@ import { StudentOrTeacherI } from '../../../shared/models/studentOrTeacher.inter
 import { RegisterService } from '../../../shared/services/register.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../../shared/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private registerSvc: RegisterService, private router: Router) { }
+  constructor(private registerSvc: RegisterService, private router: Router, private authService: AuthService) { }
 
   public newRegisterForm = new FormGroup({
     rol: new FormControl('', Validators.required),
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
 
   addNewRegister(data: StudentOrTeacherI) {
     this.registerSvc.saveRegister(data).then((res) => {
-      location.reload();
+      this.addUser(data.email, data.password);
     }).catch(err =>
       Swal.fire(
         'Error ',
@@ -41,6 +42,18 @@ export class RegisterComponent implements OnInit {
         'error'
       )
       );
+  }
+
+  addUser(email, pass) {
+    this.authService.registerUser(email, pass).then((res) => {
+      location.reload();
+    }).catch(err => {
+      Swal.fire(
+        'Error ',
+        'Ha ocurrido un error al intentar eliminar este elemento.',
+        'error'
+      );
+    });
   }
 
 }
