@@ -34,14 +34,8 @@ export class EditPostComponent implements OnInit {
   }
 
   editRegister(register: StudentOrTeacherI) {
-    console.log("Print", register);
-    
     this.registerSvc.editRegisterById(register);
   }
-
-  // handleImage(event: any){
-  //   this.image = event.target.files[0];
-  // }
 
   private initValuesForm(): void{
     this.editRegisterForm.patchValue({

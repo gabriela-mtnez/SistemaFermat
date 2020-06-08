@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from './../../../shared/components/modal/modal.component';
 import { StudentOrTeacherI } from '../../../shared/models/studentOrTeacher.interface';
-import { RegisterService } from '../../../shared/services/register.service'; 7
+import { RegisterService } from '../../../shared/services/register.service';
 import { Router } from '@angular/router';
 
 export interface PeriodicElement {
@@ -53,16 +53,11 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   goToPay(register: StudentOrTeacherI) {
-    console.log("hooola", register);
-    const a = this.toDateTime(register.birthdate);
-    console.log(a);
-    // this.router.navigate(['/home']);
+    this.router.navigate(['/admin/payment/' + register.id]);
   }
 
   onEditRegister(register: StudentOrTeacherI) {
     this.openDialog(register);
-    console.log("OnEdit", register);
-    
   }
 
   onDeleteRegister(register: StudentOrTeacherI) {
@@ -104,7 +99,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     };
     const dialogRef = this.dialog.open(ModalComponent, config);
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog result ${result}');
     });
   }
 }

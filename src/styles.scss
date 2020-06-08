@@ -1,6 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+*{
+    font-family: 'Nunito', sans-serif;
+}
+
+html, body { height: 100%; 
+    font-family: 'Nunito', sans-serif;}
+body { 
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background: #fff;
+ }
 .fill-remaining-space{
     flex: 1 1 auto;
 }
@@ -12,4 +23,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-items: center;
     justify-content: center;
     height: 100%;
+}
+
+.title{
+    font-family: 'Nunito', sans-serif;
+    color: #545454;
+    font-size: 25px;
+    line-height: 40px;
+    padding: 5px 20px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.title h2{
+    margin: 40px 0px 5px 0px;
 }

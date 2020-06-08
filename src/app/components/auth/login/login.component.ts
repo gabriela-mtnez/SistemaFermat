@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
   onLogin(form: UserI) {
     this.authSvc.loginByEmail(form)
     .then(res =>{
-      console.log('Successfully', res);
       this.route.navigate(['/']);
     })
     .catch(err => console.log('Error', err));

@@ -1,0 +1,133 @@
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    padding: 3% 10%;
+    background: #fff;
+}
+
+.mat-flat-button {
+    width: 10%;
+    background: #4e0561;
+    color: #fff;
+    &:hover {
+        background: #3c034b;
+        color: #fff;
+    }
+}
+
+.mat-flat-button-Second {
+    width: 10%;
+    border-color: #4e0561;
+    border-width: 3px;
+    background: #fff;
+    color: rgb(0, 0, 0);
+    &:hover {
+        background: #eee2f1;
+        color: rgb(0, 0, 0);
+    }
+}
+
+.container1 {
+    display: grid;
+    gap: 10px;
+    border-color: slategrey;
+    border-style: solid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(9, auto);
+    .datos {
+        // background-color: blue;
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+    .nombre {
+        // background-color: green;
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+    .fecha {
+        // background-color: yellow;
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+    .correo {
+        // background-color: chocolate;
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+    .dir {
+        // background-color: cyan;
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+    .tel {
+        // background-color: firebrick;
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+    .prom {
+        // background-color: seagreen;
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+    .orig {
+        // background-color: darkmagenta;
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+    .deseada {
+        // background-color: salmon;
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+}
+
+.container2 {
+    border-spacing: 100px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    .tabla {
+        // background-color: salmon;
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+    .saldo {
+        // background-color: darkmagenta;
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+    .botones {
+        // background-color: seagreen;
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+}
+
+table {
+    width: 100%;
+}
+
+thead {
+    display: none;
+}
+
+tr:nth-of-type(2n) {
+    background-color: inherit;
+}
+
+th {
+    background: #4e0561;
+    color: #fff;
+}
+
+tbody td {
+    display: block;
+    text-align: center;
+}
+
+tbody td:before {
+    content: attr(data-th);
+    display: block;
+    text-align: center;
+}

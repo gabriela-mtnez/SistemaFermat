@@ -1,8 +1,7 @@
 <mat-toolbar class="navbar">
     <span (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
-    </span>
-    &nbsp; &nbsp; 
+    </span> &nbsp; &nbsp;
     <a routerLink="/">
         <span>Inicio</span>
     </a>
@@ -25,19 +24,19 @@
             </a>
         </mat-nav-list> -->
 
-        <mat-nav-list>
+        <mat-nav-list *ngIf="rolBool">
             <a mat-list-item routerLink="register">
                 <mat-icon>ballot</mat-icon>&nbsp;&nbsp;Registar
             </a>
         </mat-nav-list>
 
-        <mat-nav-list>
+        <mat-nav-list *ngIf="rolBool">
             <a mat-list-item routerLink="students">
                 <mat-icon>face</mat-icon>&nbsp;&nbsp;Estudiantes
             </a>
         </mat-nav-list>
 
-        <mat-nav-list>
+        <mat-nav-list *ngIf="rolBool">
             <a mat-list-item routerLink="teachers">
                 <mat-icon>person</mat-icon>&nbsp;&nbsp;Profesores
             </a>

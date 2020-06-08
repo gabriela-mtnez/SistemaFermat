@@ -1,1 +1,84 @@
-<p>payment works!</p>
+<div *ngIf="data" class="payment-container">
+    <div class="title">
+        <h2>Generación de pagos</h2>
+    </div>
+    <div class="container1">
+        <div class="datos">
+            <h3> &nbsp;&nbsp;&nbsp; Datos del estudiante: </h3>
+        </div>
+        <div class="nombre">
+            <b> &nbsp;&nbsp;&nbsp;Nombre completo:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{data.name}}</label>
+            </b>
+        </div>
+        <div class="fecha">
+            <b> &nbsp;&nbsp;&nbsp;Fecha de nacimiento:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{toDateTime(data.birthdate)}}</label>
+            </b>
+        </div>
+        <div class="correo">
+            <b> &nbsp;&nbsp;Correo electrónico:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{data.email}}</label>
+            </b>
+        </div>
+        <div class="dir">
+            <b> &nbsp;&nbsp;&nbsp;Dirección:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{data.address}}</label>
+            </b>
+        </div>
+        <div class="tel">
+            <b> &nbsp;&nbsp;&nbsp;Teléfono:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{data.phone}}</label>
+            </b>
+        </div>
+        <div class="prom">
+            <b> &nbsp;&nbsp;Promedio:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{data.average}}</label>
+            </b>
+        </div>
+        <div class="orig">
+            <b> &nbsp;&nbsp;&nbsp;Escuela de procedencia:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{data.schoolOfOrigin}}</label>
+            </b>
+        </div>
+        <div class="deseada">
+            <b> &nbsp;&nbsp;&nbsp;Escuela deseada:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;{{data.option}}</label>
+            </b>
+        </div>
+    </div>
+
+    <div>&nbsp;</div>
+
+    <div class="container2">
+        <div class="tabla">
+            <table border="1" style="text-align: center;">
+                <tr>
+                    <th>Fecha de pago</th>
+                    <th>Monto</th>
+                </tr>
+                <tr *ngFor="let payment of paymentData">
+                    <td>{{toDateTime(payment.date)}}</td>
+                    <td>{{payment.payment}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="saldo" style="text-align: center;">
+            <b> &nbsp;&nbsp;&nbsp;Saldo restante:
+                <label style="font-weight: normal;">&nbsp;&nbsp;&nbsp;${{payment}}</label>
+            </b>
+            <label><b> &nbsp;&nbsp;&nbsp;Monto a pagar:&nbsp;</b></label>
+            <input matInput placeholder="0" type="number" id="paymentt">
+        </div>
+        <div class="botones">
+            <button class="mat-flat-button" style="float: right;" (click)="savePayment()">
+                <p style="float:inline-start;">Guardar</p>
+            </button>
+            <a routerLink="/admin/students" routerLinkActive="active">
+                <button class="mat-flat-button-Second" style="float: right;">
+                    <p style="float:inline-start;"><b>Regresar</b></p>
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
