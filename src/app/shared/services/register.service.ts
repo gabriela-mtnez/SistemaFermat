@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { StudentOrTeacherI } from '../models/studentOrTeacher.interface';
+import { TopicI } from '../models/topic.interface';
+import { PostI } from '../models/post.interface';
+import { FileI } from '../models/file.interface';
 import { SubjectI } from '../models/subject.interface';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { map, finalize } from 'rxjs/operators';
@@ -13,10 +16,16 @@ import { resolve } from 'url';
 export class RegisterService {
   private registersCollection: AngularFirestoreCollection<StudentOrTeacherI>;
   private subjectsCollection: AngularFirestoreCollection<SubjectI>;
+  private topicsCollection: AngularFirestoreCollection<TopicI>;
+  private postsCollection: AngularFirestoreCollection<PostI>;
+  private filePath: any;
+  private downloadURL: Observable<string>;
 
   constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {
     this.registersCollection = afs.collection<StudentOrTeacherI>('registers'); //aqui se pone el nombre que tiene la colección en firebase
     this.subjectsCollection = afs.collection<SubjectI>('subjects');
+    this.topicsCollection = afs.collection<TopicI>('topics');
+    this.postsCollection = afs.collection<PostI>('posts');
   }
 
   public saveRegister(register: StudentOrTeacherI) {
@@ -40,7 +49,6 @@ export class RegisterService {
       };
       this.subjectsCollection.add(subjectObj);
     }
-    // return this.registersCollection.add(registerObj);
     return new Promise((resolve, reject) => {
       this.registersCollection.add(registerObj)
         .then(userData => resolve(userData),
@@ -129,7 +137,7 @@ export class RegisterService {
 
   public getRolUser(email: string) {
     return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('email', '==', email))
-    .snapshotChanges()
+      .snapshotChanges()
       .pipe(
         map(actions =>
           actions.map(a => {
@@ -139,39 +147,57 @@ export class RegisterService {
         )
       );
   }
+  
+  public getAllTopicsOnASubject(id: TopicI): Observable<TopicI[]> {
+    return this.afs.collection<TopicI>('topics', ref => ref.where('idSubject', '==', id))
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as TopicI;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+          )
+        );
+    }
 
-  // public preAddAndUpdatePost(post: PostI, image: FileI){
-  //   this.uploadImage(post, image);
-  // }
+  public deleteTopicById(topic: TopicI) {
+    return this.topicsCollection.doc(topic.id).delete();
+  }
 
-  // private savePost(post: PostI){
-  //   const postObj = {
-  //     titlePost: post.titlePost,
-  //     contentPost: post.contentPost,
-  //     imagePost: this.downloadURL,
-  //     fileRef: this.filePath
-  //   };
-  //   if (post.id) {
-  //     return this.postsCollection.doc(post.id).update(postObj);
-  //   } else {
-  //     return this.postsCollection.add(postObj);
-  //   }
-  // }
+  public preAddAndUpdatePost(topic: TopicI, image: FileI, idSubject: string) {
+    this.uploadImage(topic, image, idSubject);
+  }
 
-  // private uploadImage(post: PostI, image: FileI) {
-  //   this.filePath = `images/${image.name}`;
-  //   const fileRef = this.storage.ref(this.filePath);
-  //   const task = this.storage.upload(this.filePath, image);
-  //   task.snapshotChanges()
-  //   .pipe(
-  //     finalize(() => {
-  //       fileRef.getDownloadURL().subscribe( urlImage => {
-  //         this.downloadURL = urlImage;
-  //         this.savePost(post);
-  //       });
-  //     })
-  //   ).subscribe();
-  // }
+  private savePost(topic: TopicI, idSub: string) {
+    const topicObj = {
+      idSubject: idSub,
+      topic: topic.topic,
+      description: topic.description,
+      content: this.downloadURL
+    };
+    if (topic.id) {
+      return this.topicsCollection.doc(topic.id).update(topicObj);
+    } else {
+      return this.topicsCollection.add(topicObj);
+    }
+  }
+
+  private uploadImage(topic: TopicI, image: FileI, idSubject: string) {
+    this.filePath = `images/${image.name}`;
+    const fileRef = this.storage.ref(this.filePath);
+    const task = this.storage.upload(this.filePath, image);
+    task.snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(urlImage => {
+            this.downloadURL = urlImage;
+            this.savePost(topic, idSubject);
+          });
+        })
+      ).subscribe();
+  }
 }
 
 

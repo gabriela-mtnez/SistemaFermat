@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { AuthGuard } from './../../shared/guards/auth.guard';
+import { ListTopicsComponent } from './subjects/list-topics/list-topics.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,15 @@ const routes: Routes = [
       { path: 'payment/:register',
       loadChildren: () => import('./payment/payment.module').then(
         m => m.PaymentModule)
-      }
+      },
+      { path: 'topics',
+      loadChildren: () => import('./subjects/list-topics/list-topics.module').then(
+        m => m.ListTopicsModule)
+      },
+      {
+        path: 'list-topics/:id', component: ListTopicsComponent
+      },
+      { path: '', redirectTo: 'register', pathMatch: 'full'}
     ]
   }
 ];
