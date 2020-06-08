@@ -36,7 +36,7 @@ const routes: Routes = [
       {
         path: 'list-topics/:id', component: ListTopicsComponent
       },
-      { path: '', redirectTo: 'register', pathMatch: 'full'}
+      { path: '', redirectTo: 'subjects', pathMatch: 'full'}
     ]
   }
 ];
