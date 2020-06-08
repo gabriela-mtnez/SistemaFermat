@@ -44,36 +44,36 @@ export class RegisterService {
     return new Promise((resolve, reject) => {
       this.registersCollection.add(registerObj)
         .then(userData => resolve(userData),
-        err =>  reject(err));
+          err => reject(err));
     });
   }
 
   public getStudentsRegisters(): Observable<StudentOrTeacherI[]> {
     return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'student'))
-    .snapshotChanges()
-    .pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as StudentOrTeacherI;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as StudentOrTeacherI;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
 
   public getTeachersRegisters(): Observable<StudentOrTeacherI[]> {
     return this.afs.collection<StudentOrTeacherI>('registers', ref => ref.where('rol', '==', 'teacher'))
-    .snapshotChanges()
-    .pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data() as StudentOrTeacherI;
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        })
-      )
-    );
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as StudentOrTeacherI;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
   }
 
   public getOneRegister(id: StudentOrTeacherI): Observable<StudentOrTeacherI> {
@@ -84,11 +84,11 @@ export class RegisterService {
     return this.afs.doc<StudentOrTeacherI>(`registers/${id}`).valueChanges();
   }
 
-  public editRegisterById( register: StudentOrTeacherI) {
-      return this.registersCollection.doc(register.id).update(register);
+  public editRegisterById(register: StudentOrTeacherI) {
+    return this.registersCollection.doc(register.id).update(register);
   }
 
-  public deleteRegisterById(register: StudentOrTeacherI ) {
+  public deleteRegisterById(register: StudentOrTeacherI) {
     return this.registersCollection.doc(register.id).delete();
   }
 
@@ -98,15 +98,17 @@ export class RegisterService {
 
   public getMoneyData(id) {
     return this.afs.collection('payments', ref => ref.where('studentId', '==', id))
-    .snapshotChanges()
-    .pipe(
-      map(actions =>
-        actions.map(a => {
-          const data: any = a.payload.doc.data();
-          return { ...data };
-        })
-      )
-    );
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data: any = a.payload.doc.data();
+            return { ...data };
+          })
+        )
+      );
+  }
+  
   public getAllSubjects(): Observable<SubjectI[]> {
     return this.subjectsCollection
       .snapshotChanges()

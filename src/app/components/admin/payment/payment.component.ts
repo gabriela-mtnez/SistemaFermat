@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { RegisterService } from 'src/app/shared/services/register.service';
 import { StudentOrTeacherI } from 'src/app/shared/models/studentOrTeacher.interface';
 import Swal from 'sweetalert2';
-import { HAMMER_LOADER } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-payment',
