@@ -26,6 +26,11 @@ import { EditPostModule } from './components/posts/edit-post/edit-post.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { TopicsTableComponent } from './components/admin/subjects/topics-table/topics-table.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +39,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ToolbarComponent,
     ContainerAppComponent,
     ModalComponent,
-    EditPostComponent
+    EditPostComponent,
+    TopicsTableComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MaterialModule,
     ReactiveFormsModule,
     EditPostModule,
-    NgbModule
+    NgbModule,
+    MatDatepickerModule
   ],
   entryComponents: [ModalComponent],
   providers: [{

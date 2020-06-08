@@ -58,6 +58,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   onEditRegister(register: StudentOrTeacherI) {
     this.openDialog(register);
+    console.log("OnEdit", register);
+    
   }
 
   onDeleteRegister(register: StudentOrTeacherI) {
@@ -89,10 +91,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
-  // onNewPost() {
-  //   this.openDialog();
-  // }
 
   openDialog(register?: StudentOrTeacherI): void {
     const config = {

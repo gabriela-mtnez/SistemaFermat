@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '../../posts/post.service';
-import { PostI } from '../../../shared/models/post.interface';
+import { RegisterService } from '../../../shared/services/register.service';
+import { SubjectI } from '../../../shared/models/subject.interface';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,12 +9,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./subjects.component.scss']
 })
 export class SubjectsComponent implements OnInit {
-  
-  public posts$: Observable<PostI[]>;
-  constructor(private postSvc: PostService) { }
+
+  public subjects$: Observable<SubjectI[]>;
+  constructor(private subjectSvc: RegisterService) { }
 
   ngOnInit() {
-    this.posts$ = this.postSvc.getAllPosts();
+    this.subjects$ = this.subjectSvc.getAllSubjects();
   }
 
 }

@@ -2,17 +2,21 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { StudentOrTeacherI } from '../models/studentOrTeacher.interface';
+import { SubjectI } from '../models/subject.interface';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { map, finalize } from 'rxjs/operators';
+import { resolve } from 'url';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegisterService {
   private registersCollection: AngularFirestoreCollection<StudentOrTeacherI>;
+  private subjectsCollection: AngularFirestoreCollection<SubjectI>;
 
   constructor(private afs: AngularFirestore, private storage: AngularFireStorage) {
     this.registersCollection = afs.collection<StudentOrTeacherI>('registers'); //aqui se pone el nombre que tiene la colección en firebase
+    this.subjectsCollection = afs.collection<SubjectI>('subjects');
   }
 
   public saveRegister(register: StudentOrTeacherI) {
@@ -21,6 +25,7 @@ export class RegisterService {
       name: register.name,
       birthdate: register.birthdate,
       email: register.email,
+      password: register.password,
       address: register.address,
       phone: register.phone,
       average: register.average,
@@ -28,21 +33,19 @@ export class RegisterService {
       option: register.option,
       speciality: register.speciality
     };
-    return this.registersCollection.add(registerObj);
-  }
-
-  public getAllRegisters(): Observable<StudentOrTeacherI[]> {
-    return this.registersCollection
-      .snapshotChanges()
-      .pipe(
-        map(actions =>
-          actions.map(a => {
-            const data = a.payload.doc.data() as StudentOrTeacherI;
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          })
-        )
-      );
+    if (register.speciality !== '') {
+      const subjectObj = {
+        teacher: register.name,
+        subject: register.speciality
+      };
+      this.subjectsCollection.add(subjectObj);
+    }
+    // return this.registersCollection.add(registerObj);
+    return new Promise((resolve, reject) => {
+      this.registersCollection.add(registerObj)
+        .then(userData => resolve(userData),
+        err =>  reject(err));
+    });
   }
 
   public getStudentsRegisters(): Observable<StudentOrTeacherI[]> {
@@ -85,7 +88,7 @@ export class RegisterService {
       return this.registersCollection.doc(register.id).update(register);
   }
 
-  public deleteRegisterById( register: StudentOrTeacherI ) {
+  public deleteRegisterById(register: StudentOrTeacherI ) {
     return this.registersCollection.doc(register.id).delete();
   }
 
@@ -104,6 +107,22 @@ export class RegisterService {
         })
       )
     );
+  public getAllSubjects(): Observable<SubjectI[]> {
+    return this.subjectsCollection
+      .snapshotChanges()
+      .pipe(
+        map(actions =>
+          actions.map(a => {
+            const data = a.payload.doc.data() as SubjectI;
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          })
+        )
+      );
+  }
+
+  public getOneSubject(id: SubjectI): Observable<SubjectI> {
+    return this.afs.doc<SubjectI>(`subject/${id}`).valueChanges();
   }
 
   // public preAddAndUpdatePost(post: PostI, image: FileI){

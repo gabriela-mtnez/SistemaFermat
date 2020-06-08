@@ -1,7 +1,7 @@
 <h2>{{data.message}}</h2>
 <mat-dialog-content class="dialog-content">
     <div *ngIf="data.content; else showNewForm">
-        <app-edit-post [post]="data.content"></app-edit-post>
+        <app-edit-post [register]="data.content"></app-edit-post>
     </div>
 
     <ng-template #showNewForm>
